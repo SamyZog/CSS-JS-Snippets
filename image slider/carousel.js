@@ -18,6 +18,7 @@ class Carousel {
 		this.parent = carouselParent;
 		this.imageArray = imageURLs;
 		this.iconsArray = controlIcons;
+		this.imageWidth = 100 / this.imageArray.length;
 		this.slideMultiplier = 0;
 	}
 
@@ -87,7 +88,7 @@ class Carousel {
 	}
 
 	move(direction, effect) {
-		this.injecteffect(effect);
+		this.injectEffect(effect);
 
 		if (direction === "next") {
 			this.slideMultiplier++;
@@ -109,7 +110,7 @@ class Carousel {
 		this.updateImageIndicator();
 	}
 
-	injecteffect(effect) {
+	injectEffect(effect) {
 		switch (effect) {
 			case "fade":
 				this.slider.style.opacity = "0";
@@ -126,7 +127,7 @@ class Carousel {
 			return;
 		}
 
-		this.injecteffect(effect);
+		this.injectEffect(effect);
 		this.slideMultiplier = e.dataset.position;
 		this.calculateImagePosition();
 		this.updateImageIndicator();

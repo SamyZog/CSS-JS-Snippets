@@ -21,8 +21,20 @@ carousel.prevButton.addEventListener("click", function () {
 	carousel.move("previous", effect);
 });
 
+carousel.slider.addEventListener("transitionend", function () {
+	this.style.opacity = "1";
+});
+
 /* ---------------------------- INDICATOR CONTROL --------------------------- */
 
 carousel.initIndicatorsBox.addEventListener("click", function (e) {
 	carousel.indicatorFunctionality(e.target, effect);
+});
+
+carousel.carousel.addEventListener("wheel", function (e) {
+	if (e.deltaY > 0) {
+		carousel.nextButton.click();
+	} else {
+		carousel.prevButton.click();
+	}
 });
