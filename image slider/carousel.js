@@ -95,14 +95,18 @@ class Carousel {
 
 		if (direction === "next") {
 			this.slideMultiplier++;
-			if (this.slideMultiplier === this.imageArray.length) {
-				this.slideMultiplier = 0;
-			}
-		} else if (direction === "previous") {
-			if (this.slideMultiplier === 0) {
-				this.slideMultiplier = this.imageArray.length;
-			}
+		}
+
+		if (this.slideMultiplier === this.imageArray.length) {
+			this.slideMultiplier = 0;
+		}
+
+		if (direction === "previous") {
 			this.slideMultiplier--;
+		}
+
+		if (this.slideMultiplier === -1) {
+			this.slideMultiplier = this.imageArray.length - 1;
 		}
 
 		this.calculateImagePosition();
