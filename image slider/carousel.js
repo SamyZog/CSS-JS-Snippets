@@ -74,7 +74,7 @@ class Carousel {
 		this.imageArray.forEach((image, i) => {
 			const indicator = document.createElement("div");
 			indicator.classList.add("carousel__position-indicator");
-			indicator.dataset.position = i + 1;
+			indicator.dataset.position = i;
 			this.initIndicatorsBox.appendChild(indicator);
 		});
 
@@ -84,9 +84,10 @@ class Carousel {
 
 	updateImageIndicator() {
 		this.indicatorsArray.forEach(indicator => {
-			+indicator.dataset.position !== this.slideMultiplier + 1
-				? indicator.classList.remove("active")
-				: indicator.classList.add("active");
+			indicator.classList.remove("active");
+			if (indicator.dataset.position == this.slideMultiplier) {
+				indicator.classList.add("active");
+			}
 		});
 	}
 
@@ -97,12 +98,12 @@ class Carousel {
 			this.slideMultiplier++;
 		}
 
-		if (this.slideMultiplier === this.imageArray.length) {
-			this.slideMultiplier = 0;
-		}
-
 		if (direction === "previous") {
 			this.slideMultiplier--;
+		}
+
+		if (this.slideMultiplier === this.imageArray.length) {
+			this.slideMultiplier = 0;
 		}
 
 		if (this.slideMultiplier === -1) {
@@ -144,7 +145,7 @@ class Carousel {
 
 		this.injecteffect(effect);
 
-		this.slideMultiplier = e.dataset.position - 1;
+		this.slideMultiplier = e.dataset.position;
 		this.calculateImagePosition();
 		this.updateImageIndicator();
 	}
