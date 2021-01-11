@@ -1,3 +1,3 @@
 # CSS-Experiments
 
-A bunch of code snippets to practice some CSS
+A bunch of code snippets to practice some CSS and vanilla JavaScript
