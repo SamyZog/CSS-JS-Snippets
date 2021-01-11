@@ -4,13 +4,15 @@ body {
 	font-family: "Roboto", sans-serif;
 	font-size: 1.6rem;
 	line-height: 1.6;
+	padding: 0 20px;
 }
 
 .carousel {
-	height: 85vh;
+	height: 80vh;
 	position: relative;
 	overflow-x: hidden;
-	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+	box-shadow: 0 20px 20px rgba(0, 0, 0, 0.5);
+	border-radius: 10px;
 }
 
 .carousel__slider {
@@ -51,14 +53,7 @@ body {
 	height: 100%;
 	width: 100%;
 	transition: 250ms;
-}
-
-.carousel__prev-button svg:active {
-	transform: translateX(-3px);
-}
-
-.carousel__next-button svg:active {
-	transform: translateX(3px);
+	opacity: 0.5;
 }
 
 .carousel__prev-button svg g,
@@ -66,9 +61,18 @@ body {
 	fill: bisque;
 }
 
-.carousel__prev-button:hover,
-.carousel__next-button:hover {
+.carousel__prev-button svg:hover,
+.carousel__next-button svg:hover {
 	transform: scale(1.25);
+	opacity: 1;
+}
+
+.carousel__next-button svg:active {
+	transform: translateX(3px);
+}
+
+.carousel__prev-button svg:active {
+	transform: translateX(-3px);
 }
 
 .carousel__indicators {
@@ -89,11 +93,17 @@ body {
 	width: 50px;
 	background-color: bisque;
 	transform: skewX(-60deg);
-	transition: background-color 500ms;
+	transition: 500ms;
+	opacity: 0.5;
+}
+
+.carousel__position-indicator:hover {
+	opacity: 1;
 }
 
 .active {
 	background-color: darksalmon;
+	opacity: 1;
 }
 
 .carousel__effect-controls {

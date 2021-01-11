@@ -18,7 +18,6 @@ class Carousel {
 		this.parent = carouselParent;
 		this.imageArray = imageURLs;
 		this.iconsArray = controlIcons;
-		this.imageWidth = 100 / this.imageArray.length;
 		this.slideMultiplier = 0;
 	}
 
@@ -134,7 +133,8 @@ class Carousel {
 	}
 
 	calculateImagePosition() {
-		this.slider.style.transform = `translateX(-${this.slideMultiplier * this.imageWidth}%)`;
+		const currentSlide = document.querySelector(`[data-position="${this.slideMultiplier}"]`);
+		this.slider.style.transform = `translateX(-${currentSlide.offsetLeft}px)`;
 	}
 
 	autoSlide() {
