@@ -20,10 +20,6 @@ class Carousel {
 		this.iconsArray = controlIcons;
 		this.imageWidth = 100 / this.imageArray.length;
 		this.slideMultiplier = 0;
-		this.slideEffect = {
-			fading: false,
-			sliding: true,
-		};
 	}
 
 	initCarousel() {
@@ -71,7 +67,7 @@ class Carousel {
 		this.initIndicatorsBox.classList.add("carousel__indicators");
 		this.carousel.appendChild(this.initIndicatorsBox);
 
-		this.imageArray.forEach((image, i) => {
+		this.imageArray.forEach((imageURL, i) => {
 			const indicator = document.createElement("div");
 			indicator.classList.add("carousel__position-indicator");
 			indicator.dataset.position = i;
@@ -114,26 +110,14 @@ class Carousel {
 		this.updateImageIndicator();
 	}
 
-	fade() {
-		this.slideEffect.fading = true;
-		this.slideEffect.sliding = false;
-		this.slider.style.opacity = "0";
-		this.slider.style.transition = `opacity 500ms, transform 0ms 250ms`;
-	}
-
-	slide() {
-		this.slideEffect.sliding = true;
-		this.slideEffect.fading = false;
-		this.slider.style.transition = `transform 500ms`;
-	}
-
 	injecteffect(effect) {
 		switch (effect) {
 			case "fade":
-				this.fade();
+				this.slider.style.opacity = "0";
+				this.slider.style.transition = `opacity 500ms, transform 0ms 250ms`;
 				break;
 			case "slide":
-				this.slide();
+				this.slider.style.transition = `transform 500ms`;
 				break;
 		}
 	}
@@ -144,7 +128,6 @@ class Carousel {
 		}
 
 		this.injecteffect(effect);
-
 		this.slideMultiplier = e.dataset.position;
 		this.calculateImagePosition();
 		this.updateImageIndicator();
@@ -152,6 +135,12 @@ class Carousel {
 
 	calculateImagePosition() {
 		this.slider.style.transform = `translateX(-${this.slideMultiplier * this.imageWidth}%)`;
+	}
+
+	autoSlide() {
+		setInterval(() => {
+			this.nextButton.click();
+		}, 3000);
 	}
 
 	init() {

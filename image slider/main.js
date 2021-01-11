@@ -30,5 +30,3 @@ carousel.initIndicatorsBox.addEventListener("click", function (e) {
 carousel.slider.addEventListener("transitionend", function () {
 	this.style.opacity = "1";
 });
-
-let clickOrTouch;
