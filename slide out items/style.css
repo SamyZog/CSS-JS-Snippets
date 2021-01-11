@@ -1,0 +1,36 @@
+@import "../GLOBAL_BASE.css";
+
+.container {
+	display: flex;
+}
+
+.item {
+	cursor: pointer;
+	height: 200px;
+	width: 200px;
+	transition-duration: 500ms;
+}
+
+.item:not(:first-child) {
+	margin-left: -150px;
+}
+
+.item:hover:not(:first-child) {
+	margin-left: 0;
+}
+
+.item1 {
+	z-index: 4;
+}
+
+.item2 {
+	z-index: 3;
+}
+
+.item3 {
+	z-index: 2;
+}
+
+.item4 {
+	z-index: 1;
+}

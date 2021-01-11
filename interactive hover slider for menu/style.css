@@ -1,0 +1,35 @@
+@import "../GLOBAL_BASE.css";
+
+body {
+	font-family: consolas;
+	line-height: 1.6;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	font-size: 1.6rem;
+	text-transform: uppercase;
+}
+
+nav {
+	position: relative;
+	display: flex;
+	width: 50%;
+	justify-content: space-evenly;
+}
+
+nav a {
+	text-decoration: none;
+	color: #000;
+}
+
+nav #marker {
+	position: absolute;
+	left: 0;
+	height: 4px;
+	width: 0;
+	background-color: #000;
+	bottom: -8px;
+	border-radius: 4px;
+	transition-duration: 500ms;
+}

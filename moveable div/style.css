@@ -1,0 +1,20 @@
+@import "../GLOBAL_BASE.css";
+
+body {
+	font-family: "Roboto", sans-serif;
+	line-height: 1.6;
+	font-size: 1.6rem;
+	min-height: 100vh;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.block {
+	position: absolute;
+	width: 100px;
+	height: 100px;
+	background-color: #222;
+	border-radius: 50%;
+}

@@ -1,0 +1,16 @@
+@import "../GLOBAL_BASE.css";
+
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	min-width: 100vw;
+}
+
+.container {
+	cursor: none;
+	min-height: 300px;
+	flex-basis: 500px;
+	background-image: radial-gradient(25px at 100% 25%, red, green);
+}

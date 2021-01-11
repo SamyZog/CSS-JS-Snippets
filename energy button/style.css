@@ -1,0 +1,89 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;900&display=swap");
+@import "../GLOBAL_BASE.css";
+
+body {
+	font-family: "Poppins", sans-serif;
+	line-height: 1.6;
+	font-weight: 300;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	background-color: #000;
+}
+
+.container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 25%;
+}
+
+.container a {
+	text-transform: uppercase;
+	position: relative;
+	display: inline-block;
+	border-color: #0f0;
+	border-style: solid;
+	border-width: 2px;
+	padding: 15px 30px;
+	font-weight: 600;
+	text-decoration: none;
+	color: #fff;
+	transition-duration: 1000ms;
+	transition-delay: 1000ms;
+}
+
+.container span {
+	position: relative;
+	z-index: 1;
+}
+
+.container a:hover {
+	color: #000;
+	box-shadow: 0 0 100px#0f0;
+}
+
+.container a::before {
+	background-color: #0f0;
+	width: 20px;
+	height: 2px;
+	content: "";
+	position: absolute;
+	left: -20px;
+	top: 50%;
+	transform: translateY(-50%);
+	box-shadow: 5px -8px 0 #0f0, 5px 8px 0 #0f0;
+	transition: width 500ms, left 500ms, height 500ms, box-shadow 500ms;
+	transition-delay: 1000ms, 500ms, 0ms, 0ms;
+}
+
+.container a:hover::before {
+	left: 0;
+	height: 100%;
+	width: 50%;
+	box-shadow: 5px 0 0 #0f0, 5px 0 0 #0f0;
+	transition-delay: 0ms, 500ms, 1000ms, 1000ms;
+}
+
+.container a::after {
+	background-color: #0f0;
+	width: 20px;
+	height: 2px;
+	content: "";
+	position: absolute;
+	right: -20px;
+	top: 50%;
+	transform: translateY(-50%);
+	box-shadow: -5px -8px 0 #0f0, -5px 8px 0 #0f0;
+	transition: width 500ms, right 500ms, height 500ms, box-shadow 500ms;
+	transition-delay: 1000ms, 500ms, 0ms, 0ms;
+}
+
+.container a:hover::after {
+	right: 0;
+	height: 100%;
+	width: 50%;
+	box-shadow: 5px 0 0 #0f0, 5px 0 0 #0f0;
+	transition-delay: 0ms, 500ms, 1000ms, 1000ms;
+}

@@ -1,0 +1,90 @@
+@import "../GLOBAL_BASE.css";
+
+body {
+	font-family: consolas, sans-serif;
+	line-height: 1.6;
+	font-size: 1.6rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	min-height: 100vh;
+	background-color: rgba(0, 17, 47, 1);
+}
+
+.clock {
+	width: 350px;
+	height: 350px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 8px solid white;
+	border-radius: 50%;
+}
+
+.clock::before {
+	content: "";
+	position: absolute;
+	width: 15px;
+	height: 15px;
+	background-color: skyblue;
+	z-index: 10000;
+	border-radius: 50%;
+}
+
+.hour,
+.minute,
+.second {
+	position: absolute;
+}
+
+.hour,
+.hr {
+	width: 200px;
+	height: 200px;
+}
+
+.minute,
+.min {
+	width: 230px;
+	height: 230px;
+}
+
+.second,
+.sec {
+	width: 250px;
+	height: 250px;
+}
+
+.hr,
+.min,
+.sec {
+	position: absolute;
+	display: flex;
+	justify-content: center;
+}
+
+.hr::before {
+	content: "";
+	position: absolute;
+	width: 8px;
+	height: 100px;
+	background-color: white;
+}
+
+.min::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	width: 4px;
+	height: 115px;
+	background-color: white;
+}
+
+.sec::before {
+	content: "";
+	position: absolute;
+	width: 2px;
+	height: 125px;
+	background-color: red;
+}

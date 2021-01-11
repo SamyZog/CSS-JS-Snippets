@@ -1,0 +1,116 @@
+@import "../GLOBAL_BASE.css";
+
+body {
+	font-family: "Roboto", sans-serif;
+	font-size: 1.6rem;
+	line-height: 1.6;
+}
+
+.carousel {
+	height: 85vh;
+	position: relative;
+	overflow-x: hidden;
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.carousel__slider {
+	height: 100%;
+	display: flex;
+}
+
+.carousel__slider-image {
+	height: 100%;
+	background-position: center;
+	background-size: cover;
+}
+
+.carousel__controls {
+	position: absolute;
+	top: 50%;
+	height: 100%;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	transform: translateY(-50%);
+	/* background-image: linear-gradient(to right, #222 -30%, transparent, #222 130%); */
+}
+
+.carousel__prev-button,
+.carousel__next-button {
+	margin: 0 10px;
+	cursor: pointer;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	transition-duration: 500ms;
+}
+
+.carousel__prev-button svg,
+.carousel__next-button svg {
+	height: 100%;
+	width: 100%;
+	transition: 250ms;
+}
+
+.carousel__prev-button svg:active {
+	transform: translateX(-3px);
+}
+
+.carousel__next-button svg:active {
+	transform: translateX(3px);
+}
+
+.carousel__prev-button svg g,
+.carousel__next-button svg g {
+	fill: bisque;
+}
+
+.carousel__prev-button:hover,
+.carousel__next-button:hover {
+	transform: scale(1.25);
+}
+
+.carousel__indicators {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	height: 40px;
+	background-image: linear-gradient(to top, #222, transparent);
+}
+
+.carousel__position-indicator {
+	margin: 0 5px;
+	cursor: pointer;
+	height: 5px;
+	width: 50px;
+	background-color: bisque;
+	transform: skewX(-60deg);
+	transition: background-color 500ms;
+}
+
+.active {
+	background-color: darksalmon;
+}
+
+.carousel__effect-controls {
+	height: 15vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.fade,
+.slide {
+	margin: 0 20px;
+	background-color: coral;
+	width: 100px;
+	height: 30px;
+	text-align: center;
+	line-height: 30px;
+	border-radius: 1000px;
+	cursor: pointer;
+}

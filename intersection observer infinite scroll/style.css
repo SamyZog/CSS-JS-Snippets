@@ -1,0 +1,28 @@
+@import "../GLOBAL_BASE.css";
+
+.container {
+	background-color: palevioletred;
+	min-height: 100vh;
+}
+
+.container__body {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-auto-rows: 300px;
+	background-color: black;
+	gap: 20px;
+}
+
+.container__footer {
+	background-color: peru;
+	height: 25vh;
+}
+
+.container__items {
+	background-color: burlywood;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 2rem;
+	text-transform: capitalize;
+}

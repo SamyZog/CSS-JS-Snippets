@@ -1,0 +1,61 @@
+@import "../GLOBAL_BASE.css";
+@import url("https://fonts.googleapis.com/css2?family=Jura:wght@300;500;700&display=swap");
+
+body {
+	font-family: "Jura", sans-serif;
+	line-height: 1.6;
+	font-weight: 300;
+	font-size: 1.6rem;
+}
+
+.navigation {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+}
+
+.navigation__open-close-button {
+	width: 100vw;
+	cursor: pointer;
+	height: 50px;
+	background-color: darkolivegreen;
+	border: none;
+	outline: none;
+	color: floralwhite;
+	font-weight: 700;
+	z-index: 1;
+}
+
+.navigation__menu {
+	background-color: darkgoldenrod;
+	width: 100%;
+	position: absolute;
+	transform: translateY(-100%);
+	transition-duration: 200ms;
+}
+
+.top {
+	transform: translateY(0);
+	position: relative;
+}
+
+.navigation__menu-list {
+	text-align: center;
+}
+
+.navigation__menu-link:link,
+.navigation__menu-link:visited {
+	color: floralwhite;
+	display: inline-block;
+	text-decoration: none;
+	font-weight: 500;
+	padding: 1rem 0;
+}
+
+.navigation__menu-link:active {
+	color: forestgreen;
+}
+
+.navigation__menu-link:hover {
+	color: green;
+}

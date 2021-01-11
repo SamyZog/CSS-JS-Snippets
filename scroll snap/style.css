@@ -1,0 +1,33 @@
+@import "../GLOBAL_BASE.css";
+
+.container {
+	height: 100vh; /* needed on both parent and children */
+	scroll-snap-type: y mandatory;
+	scroll-behavior: smooth;
+	scroll-snap-align: center;
+	overflow-y: scroll; /* m,andatory */
+}
+
+.container__item {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	height: 100vh;
+	scroll-snap-align: start;
+}
+
+.item1 {
+	background-color: blue;
+	font-size: 5rem;
+}
+
+.item2 {
+	background-color: yellow;
+	font-size: 5rem;
+}
+
+.item3 {
+	background-color: red;
+	font-size: 5rem;
+}
