@@ -26,7 +26,3 @@ carousel.prevButton.addEventListener("click", function () {
 carousel.initIndicatorsBox.addEventListener("click", function (e) {
 	carousel.indicatorFunctionality(e.target, effect);
 });
-
-carousel.slider.addEventListener("transitionend", function () {
-	this.style.opacity = "1";
-});

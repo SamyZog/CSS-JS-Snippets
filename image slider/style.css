@@ -18,6 +18,15 @@ body {
 .carousel__slider {
 	height: 100%;
 	display: flex;
+	scroll-snap-type: x mandatory;
+	scroll-behavior: smooth;
+	scroll-snap-align: center;
+	overflow-x: scroll; /* mandatory */
+	scrollbar-width: none;
+}
+
+.carousel__slider::-webkit-scrollbar {
+	display: none;
 }
 
 .carousel__slider-image {
