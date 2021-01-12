@@ -70,8 +70,6 @@ class Carousel {
 	}
 
 	initControlsBox() {
-		this.controlsBox = document.createElement("div");
-		this.controlsBox.classList.add("carousel__controls");
 		[this.prevButton, this.nextButton] = [document.createElement("div"), document.createElement("div")];
 		this.prevButton.classList.add("carousel__prev-button");
 		this.nextButton.classList.add("carousel__next-button");
@@ -79,8 +77,7 @@ class Carousel {
 		this.nextIcon = document.createRange().createContextualFragment(this.iconsArray[1]).firstChild;
 		this.prevButton.appendChild(this.prevIcon);
 		this.nextButton.appendChild(this.nextIcon);
-		this.carousel.appendChild(this.controlsBox);
-		this.controlsBox.append(this.prevButton, this.nextButton);
+		this.carousel.append(this.prevButton, this.nextButton);
 	}
 
 	initIndicators() {
@@ -166,10 +163,10 @@ class Carousel {
 
 	/* ------------------------ SLIDER GRAB FUNCTIONALITY ----------------------- */
 
-	// onGrabClick(e) {
-	// 	this.clicked = true;
-	// 	this.initialClickX = this.currentX - e.pageX;
-	// }
+	onGrabClick(e) {
+		this.clicked = true;
+		this.initialClickX = this.currentX - e.pageX;
+	}
 
 	// onGrabMove(e) {
 	// 	if (!this.clicked) {

@@ -20,13 +20,11 @@ carousel.init();
 
 /* -------------------------- DIRECTIONAL BEHAVIOR -------------------------- */
 
-carousel.nextButton.addEventListener("click", function (e) {
-	e.stopPropagation();
+carousel.nextIcon.addEventListener("click", function (e) {
 	carousel.move("next");
 });
 
-carousel.prevButton.addEventListener("click", function (e) {
-	e.stopPropagation();
+carousel.prevIcon.addEventListener("click", function (e) {
 	carousel.move("previous");
 });
 
@@ -42,27 +40,14 @@ carousel.initIndicatorsBox.addEventListener("click", function (e) {
 
 carousel.carousel.addEventListener("wheel", function (e) {
 	if (e.deltaY > 0) {
-		carousel.nextButton.click();
+		carousel.move("next");
 	} else {
-		carousel.prevButton.click();
+		carousel.move("previous");
 	}
 });
 
-// carousel.carousel.addEventListener("mousedown", function (e) {
-// 	e.stopPropagation();
-// 	carousel.onGrabClick(e);
-
-// 	carousel.carousel.addEventListener("mouseleave", function (e) {
-// 		carousel.onGrabLeave(e);
-// 	});
-
-// 	carousel.carousel.addEventListener("mouseup", function (e) {
-// 		carousel.onGrabUp(e);
-// 	});
-
-// 	carousel.carousel.addEventListener("mousemove", function (e) {
-// 		carousel.onGrabMove(e);
-// 	});
-// });
+carousel.carousel.addEventListener("mousedown", function (e) {
+	console.log("click");
+});
 
 carousel.slides.forEach(slide => [console.log(slide.offsetWidth)]);
