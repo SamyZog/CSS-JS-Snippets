@@ -7,6 +7,7 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	flex-direction: column;
 }
 
 .carousel {
@@ -18,15 +19,30 @@ body {
 
 .slider {
 	height: 100%;
-	width: 500%;
-	background-color: orangered;
+	width: 200%;
 	display: flex;
-	justify-content: space-evenly;
-	transition: 700ms ease-out;
+	transition-duration: 500ms;
 }
 
-.item {
+.image {
 	height: 100%;
 	width: 100%;
 	outline: 1px solid yellow;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-position: center;
+	background-size: cover;
+	background-image: url("https://images.unsplash.com/photo-1458966480358-a0ac42de0a7a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80");
+}
+
+.controls {
+	display: flex;
+	justify-content: space-between;
+	width: 700px;
+}
+
+.next,
+.prev {
+	cursor: pointer;
 }

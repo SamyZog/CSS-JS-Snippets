@@ -21,21 +21,15 @@ carousel.init();
 /* -------------------------- DIRECTIONAL BEHAVIOR -------------------------- */
 
 carousel.nextButton.addEventListener("click", function () {
-	carousel.direction = "next";
-	carousel.move();
+	carousel.move("next");
 });
 
 carousel.prevButton.addEventListener("click", function () {
-	carousel.direction = "previous";
-	carousel.move();
+	carousel.move("previous");
 });
 
 carousel.slider.addEventListener("transitionend", function () {
 	this.style.opacity = "1";
-});
-
-carousel.slider.addEventListener("click", function () {
-	console.log("hello");
 });
 
 /* ---------------------------- INDICATOR CONTROL --------------------------- */
@@ -52,18 +46,18 @@ carousel.carousel.addEventListener("wheel", function (e) {
 	}
 });
 
-// carousel.carousel.addEventListener("mousedown", function (e) {
-// 	carousel.onGrabClick(e);
+carousel.carousel.addEventListener("mousedown", function (e) {
+	carousel.onGrabClick(e);
 
-// 	carousel.carousel.addEventListener("mouseleave", function (e) {
-// 		carousel.onGrabLeave(e);
-// 	});
+	carousel.carousel.addEventListener("mouseleave", function (e) {
+		carousel.onGrabLeave(e);
+	});
 
-// 	carousel.carousel.addEventListener("mouseup", function (e) {
-// 		carousel.onGrabUp(e);
-// 	});
+	carousel.carousel.addEventListener("mouseup", function (e) {
+		carousel.onGrabUp(e);
+	});
 
-// 	carousel.carousel.addEventListener("mousemove", function (e) {
-// 		carousel.onGrabMove(e);
-// 	});
-// });
+	carousel.carousel.addEventListener("mousemove", function (e) {
+		carousel.onGrabMove(e);
+	});
+});

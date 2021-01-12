@@ -11,7 +11,7 @@ class Carousel {
 		this.initialClickX;
 		this.newClickX;
 		this.currentX = 0;
-		this.effect;
+		this.effect = "slide";
 		this.transitionDuration = 500;
 		this.direction;
 	}
@@ -36,9 +36,9 @@ class Carousel {
 		}
 	}
 
-	// blockMoveOffset() {
-	// 	return this.slider.offsetWidth - this.carousel.offsetWidth;
-	// }
+	blockMoveOffset() {
+		return this.slider.offsetWidth - this.carousel.offsetWidth;
+	}
 
 	/* ----------------------- CREATE AND INJECT CAROUSEL ----------------------- */
 
@@ -51,7 +51,7 @@ class Carousel {
 	initSlider() {
 		this.slider = document.createElement("div");
 		this.slider.classList.add("carousel__slider");
-		this.slider.style.width = `${this.imageArray.length * 100}vw`;
+		this.slider.style.width = `${this.imageArray.length * 100}%`;
 		this.carousel.append(this.slider);
 		this.sliderImages = [];
 
@@ -100,11 +100,16 @@ class Carousel {
 
 	/* ----------------------------- SLIDER MOVEMENT ---------------------------- */
 
-	move() {
+	move(direction) {
 		this.injectEffect();
+		this.updateDirection(direction);
 		this.multiplierUpdate();
 		this.updateImagePosition();
 		this.updateImageIndicator();
+	}
+
+	updateDirection(direction) {
+		this.direction = direction;
 	}
 
 	multiplierUpdate() {
@@ -126,12 +131,12 @@ class Carousel {
 	}
 
 	indicatorFunctionality(e) {
-		if (e === this.initIndicatorsBox || e.target.classList.contains(this.activeIndicatorClass)) {
+		if (e.target === this.initIndicatorsBox || e.target.classList.contains(this.activeIndicatorClass)) {
 			return;
 		}
 
-		this.slideMultiplier = e.target.dataset.position;
 		this.injectEffect();
+		this.slideMultiplier = e.target.dataset.position;
 		this.updateImagePosition();
 		this.updateImageIndicator();
 	}
@@ -147,47 +152,47 @@ class Carousel {
 
 	updateImagePosition() {
 		const currentSlide = document.querySelector(`[data-position="${this.slideMultiplier}"]`);
-		this.slider.style.transform = `translateX(-${currentSlide.offsetLeft}px)`;
+		this.slider.style.transform = `translateX(-${this.updateTransformValue(currentSlide.offsetLeft)}px)`;
 	}
 
-	calculateTransformValue() {}
+	updateTransformValue(value) {
+		return (this.transformValue = value);
+	}
 
-	// onGrabClick(e) {
-	// 	console.log("clicked");
-	// 	this.clicked = true;
-	// 	this.initialClickX = this.currentX - e.pageX;
-	// }
+	/* ------------------------ SLIDER GRAB FUNCTIONALITY ----------------------- */
 
-	// onGrabMove(e) {
-	// 	if (!this.clicked) {
-	// 		return;
-	// 	}
-	// 	e.preventDefault();
-	// 	this.newClickX = e.pageX + this.initialClickX;
-	// 	console.log(this.newClickX);
+	onGrabClick(e) {
+		console.log("clicked");
+		this.clicked = true;
+		this.initialClickX = this.currentX - e.pageX;
+	}
 
-	// 	if (this.newClickX < -150) {
-	// 		this.nextButton.click();
-	// 		return;
-	// 	}
-	// 	if (this.newClickX > 0) {
-	// 		this.newClickX = 0;
-	// 	} else if (this.newClickX < -this.blockMoveOffset()) {
-	// 		this.newClickX = this.blockMoveOffset();
-	// 	}
+	onGrabMove(e) {
+		if (!this.clicked) {
+			return;
+		}
+		e.preventDefault();
+		this.newClickX = e.pageX + this.initialClickX;
+		console.log(this.newClickX);
 
-	// 	this.slider.style.transform = `translateX(${this.newClickX}px)`;
-	// }
+		if (this.newClickX > 0) {
+			this.newClickX = 0;
+		} else if (this.newClickX < -this.blockMoveOffset()) {
+			this.newClickX = this.blockMoveOffset();
+		}
 
-	// onGrabLeave() {
-	// 	this.clicked = false;
-	// 	this.currentX = this.newClickX || 0;
-	// }
+		this.slider.style.transform = `translateX(${this.newClickX}px)`;
+	}
 
-	// onGrabUp() {
-	// 	this.clicked = false;
-	// 	this.currentX = this.newClickX || 0;
-	// }
+	onGrabLeave() {
+		this.clicked = false;
+		this.currentX = this.newClickX || 0;
+	}
+
+	onGrabUp() {
+		this.clicked = false;
+		this.currentX = this.newClickX || 0;
+	}
 
 	init() {
 		this.initCarousel();

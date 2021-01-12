@@ -1,40 +1,22 @@
-const carousel = document.querySelector(".carousel");
+const imageArray = [
+	"https://images.unsplash.com/photo-1458966480358-a0ac42de0a7a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+	"https://images.unsplash.com/photo-1421789665209-c9b2a435e3dc?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1951&q=80",
+	"https://images.unsplash.com/photo-1565612936643-ea2484086bb6?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1960&q=80",
+];
+
 const slider = document.querySelector(".slider");
+const image = document.querySelectorAll(".image");
+const nextBtn = document.querySelector(".next");
+const prevBtn = document.querySelector(".prev");
+console.log(document.querySelector(`[data-position=""]`));
 
-let clicked;
-let secondClick;
-let initialClickX;
-let newClickX;
-let currentX = 0;
+let sliderMultiplier = 0;
 
-slider.addEventListener("mousedown", function (e) {
-	clicked = true;
-	slider.style.cursor = "grabbing";
-	initialClickX = currentX - e.pageX;
+nextBtn.addEventListener("click", function (e) {
+	sliderMultiplier++;
+	image[sliderMultiplier].style.backgroundImage = `url(${imageArray[sliderMultiplier]})`;
 
-	slider.addEventListener("mousemove", function (e) {
-		if (!clicked) {
-			return;
-		}
-		e.preventDefault();
-		this.newClickX = e.pageX + this.initialClickX;
-		if (this.newClickX > 0) {
-			newClickX = 0;
-		} else if (newClickX < -2800) {
-			newClickX = -2800;
-		}
-		slider.style.transform = `translateX(${newClickX}px)`;
-	});
+	const offset = document.querySelector(`[data-position="${sliderMultiplier}"]`);
 
-	slider.addEventListener("mouseleave", function (e) {
-		slider.style.cursor = "default";
-		clicked = false;
-		currentX = newClickX || 0; // if we click on mousedown and we do not move the element => newClickX will be undefined, so we return it to 0
-	});
-
-	slider.addEventListener("mouseup", function (e) {
-		slider.style.cursor = "grabbing";
-		clicked = false;
-		currentX = newClickX || 0; // if we click on mousedown and we do not move the element => newClickX will be undefined, so we return it to 0
-	});
+	slider.style.transform = `translateX(-${offset.offsetLeft}px)`;
 });
