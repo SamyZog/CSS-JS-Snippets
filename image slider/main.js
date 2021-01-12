@@ -20,11 +20,13 @@ carousel.init();
 
 /* -------------------------- DIRECTIONAL BEHAVIOR -------------------------- */
 
-carousel.nextButton.addEventListener("click", function () {
+carousel.nextButton.addEventListener("click", function (e) {
+	e.stopPropagation();
 	carousel.move("next");
 });
 
-carousel.prevButton.addEventListener("click", function () {
+carousel.prevButton.addEventListener("click", function (e) {
+	e.stopPropagation();
 	carousel.move("previous");
 });
 
@@ -46,18 +48,21 @@ carousel.carousel.addEventListener("wheel", function (e) {
 	}
 });
 
-carousel.carousel.addEventListener("mousedown", function (e) {
-	carousel.onGrabClick(e);
+// carousel.carousel.addEventListener("mousedown", function (e) {
+// 	e.stopPropagation();
+// 	carousel.onGrabClick(e);
 
-	carousel.carousel.addEventListener("mouseleave", function (e) {
-		carousel.onGrabLeave(e);
-	});
+// 	carousel.carousel.addEventListener("mouseleave", function (e) {
+// 		carousel.onGrabLeave(e);
+// 	});
 
-	carousel.carousel.addEventListener("mouseup", function (e) {
-		carousel.onGrabUp(e);
-	});
+// 	carousel.carousel.addEventListener("mouseup", function (e) {
+// 		carousel.onGrabUp(e);
+// 	});
 
-	carousel.carousel.addEventListener("mousemove", function (e) {
-		carousel.onGrabMove(e);
-	});
-});
+// 	carousel.carousel.addEventListener("mousemove", function (e) {
+// 		carousel.onGrabMove(e);
+// 	});
+// });
+
+carousel.slides.forEach(slide => [console.log(slide.offsetWidth)]);

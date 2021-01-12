@@ -6,6 +6,7 @@ class Carousel {
 		this.imageWidth = 100 / this.imageArray.length;
 		this.slideMultiplier = 0;
 		this.activeIndicatorClass = "active";
+		this.currentSlide;
 		this.transformValue;
 		this.clicked;
 		this.initialClickX;
@@ -151,48 +152,52 @@ class Carousel {
 	}
 
 	updateImagePosition() {
-		const currentSlide = document.querySelector(`[data-position="${this.slideMultiplier}"]`);
-		this.slider.style.transform = `translateX(-${this.updateTransformValue(currentSlide.offsetLeft)}px)`;
+		this.currentVisibleSlide();
+		this.updateTransformValue(this.currentSlide.offsetLeft);
+	}
+
+	currentVisibleSlide() {
+		this.currentSlide = document.querySelector(`[data-position="${this.slideMultiplier}"]`);
 	}
 
 	updateTransformValue(value) {
-		return (this.transformValue = value);
+		this.slider.style.transform = `translateX(-${value}px)`;
 	}
 
 	/* ------------------------ SLIDER GRAB FUNCTIONALITY ----------------------- */
 
-	onGrabClick(e) {
-		console.log("clicked");
-		this.clicked = true;
-		this.initialClickX = this.currentX - e.pageX;
-	}
+	// onGrabClick(e) {
+	// 	this.clicked = true;
+	// 	this.initialClickX = this.currentX - e.pageX;
+	// }
 
-	onGrabMove(e) {
-		if (!this.clicked) {
-			return;
-		}
-		e.preventDefault();
-		this.newClickX = e.pageX + this.initialClickX;
-		console.log(this.newClickX);
+	// onGrabMove(e) {
+	// 	if (!this.clicked) {
+	// 		return;
+	// 	}
 
-		if (this.newClickX > 0) {
-			this.newClickX = 0;
-		} else if (this.newClickX < -this.blockMoveOffset()) {
-			this.newClickX = this.blockMoveOffset();
-		}
+	// 	e.preventDefault();
+	// 	this.newClickX = e.pageX + this.initialClickX;
+	// 	console.log(this.newClickX);
 
-		this.slider.style.transform = `translateX(${this.newClickX}px)`;
-	}
+	// 	if (this.newClickX > 0) {
+	// 		this.newClickX = 0;
+	// 	} else if (this.newClickX < -this.blockMoveOffset()) {
+	// 		this.newClickX = -this.blockMoveOffset();
+	// 	}
 
-	onGrabLeave() {
-		this.clicked = false;
-		this.currentX = this.newClickX || 0;
-	}
+	// 	this.slider.style.transform = `translateX(${this.newClickX}px)`;
+	// }
 
-	onGrabUp() {
-		this.clicked = false;
-		this.currentX = this.newClickX || 0;
-	}
+	// onGrabLeave() {
+	// 	this.clicked = false;
+	// 	this.currentX = this.newClickX || 0;
+	// }
+
+	// onGrabUp() {
+	// 	this.clicked = false;
+	// 	this.currentX = this.newClickX || 0;
+	// }
 
 	init() {
 		this.initCarousel();
