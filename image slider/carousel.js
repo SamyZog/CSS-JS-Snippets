@@ -1,18 +1,3 @@
-const parent = document.body;
-
-const sliderImageURLs = [
-	"https://images.unsplash.com/photo-1558393427-8942ece21185?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-	"https://images.unsplash.com/photo-1603877428925-35c666ea8167?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1951&q=80",
-	"https://images.unsplash.com/flagged/photo-1556483297-b827c2d59c4f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-	"https://images.unsplash.com/photo-1558393427-950a64bd3063?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-	"https://images.unsplash.com/photo-1579867907570-2913a10b1623?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-];
-
-const controlIconsArray = [
-	`<svg height="12px" version="1.1" viewBox="0 0 9 12" width="9px" xmlns="http://www.w3.org/2000/svg" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" xmlns:xlink="http://www.w3.org/1999/xlink"><title/><desc/><defs/><g fill="none" fill-rule="evenodd" id="Page-1" stroke="none" stroke-width="1"><g fill="#000000" id="Core" transform="translate(-218.000000, -90.000000)"><g id="chevron-left" transform="translate(218.500000, 90.000000)"><path d="M7.4,1.4 L6,0 L-8.8817842e-16,6 L6,12 L7.4,10.6 L2.8,6 L7.4,1.4 Z" id="Shape"/></g></g></g></svg>`,
-	`<svg height="12px" version="1.1" viewBox="0 0 9 12" width="9px" xmlns="http://www.w3.org/2000/svg" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" xmlns:xlink="http://www.w3.org/1999/xlink"><title/><desc/><defs/><g fill="none" fill-rule="evenodd" id="Page-1" stroke="none" stroke-width="1"><g fill="#000000" id="Core" transform="translate(-260.000000, -90.000000)"><g id="chevron-right" transform="translate(260.500000, 90.000000)"><path d="M1,0 L-0.4,1.4 L4.2,6 L-0.4,10.6 L1,12 L7,6 L1,0 Z" id="Shape"/></g></g></g></svg>`,
-];
-
 class Carousel {
 	constructor(carouselParent, imageURLs, controlIcons) {
 		this.parent = carouselParent;
@@ -20,7 +5,42 @@ class Carousel {
 		this.iconsArray = controlIcons;
 		this.imageWidth = 100 / this.imageArray.length;
 		this.slideMultiplier = 0;
+		this.activeIndicatorClass = "active";
+		this.transformValue;
+		this.clicked;
+		this.initialClickX;
+		this.newClickX;
+		this.currentX = 0;
+		this.effect;
+		this.transitionDuration = 500;
+		this.direction;
 	}
+
+	/* ---------------------------- SET SLIDER EFFECT --------------------------- */
+
+	injectEffect() {
+		if (!this.effect) {
+			return;
+		}
+
+		switch (this.effect) {
+			case "fade":
+				this.slider.style.opacity = "0";
+				this.slider.style.transition = `opacity ${this.transitionDuration}ms, transform 0ms ${
+					this.transitionDuration / 2
+				}ms`;
+				break;
+			case "slide":
+				this.slider.style.transition = `transform ${this.transitionDuration}ms`;
+				break;
+		}
+	}
+
+	// blockMoveOffset() {
+	// 	return this.slider.offsetWidth - this.carousel.offsetWidth;
+	// }
+
+	/* ----------------------- CREATE AND INJECT CAROUSEL ----------------------- */
 
 	initCarousel() {
 		this.carousel = document.createElement("div");
@@ -74,27 +94,25 @@ class Carousel {
 			this.initIndicatorsBox.appendChild(indicator);
 		});
 
-		this.initIndicatorsBox.querySelector(":nth-child(1)").classList.add("active");
+		this.initIndicatorsBox.querySelector(":nth-child(1)").classList.add(this.activeIndicatorClass);
 		this.indicatorsArray = this.initIndicatorsBox.childNodes;
 	}
 
-	updateImageIndicator() {
-		this.indicatorsArray.forEach(indicator => {
-			indicator.classList.remove("active");
-			if (indicator.dataset.position == this.slideMultiplier) {
-				indicator.classList.add("active");
-			}
-		});
+	/* ----------------------------- SLIDER MOVEMENT ---------------------------- */
+
+	move() {
+		this.injectEffect();
+		this.multiplierUpdate();
+		this.updateImagePosition();
+		this.updateImageIndicator();
 	}
 
-	move(direction, effect) {
-		this.injectEffect(effect);
-
-		if (direction === "next") {
+	multiplierUpdate() {
+		if (this.direction === "next") {
 			this.slideMultiplier++;
 		}
 
-		if (direction === "previous") {
+		if (this.direction === "previous") {
 			this.slideMultiplier--;
 		}
 
@@ -105,44 +123,71 @@ class Carousel {
 		if (this.slideMultiplier === -1) {
 			this.slideMultiplier = this.imageArray.length - 1;
 		}
-
-		this.calculateImagePosition();
-		this.updateImageIndicator();
 	}
 
-	injectEffect(effect) {
-		switch (effect) {
-			case "fade":
-				this.slider.style.opacity = "0";
-				this.slider.style.transition = `opacity 500ms, transform 0ms 250ms`;
-				break;
-			case "slide":
-				this.slider.style.transition = `transform 500ms`;
-				break;
-		}
-	}
-
-	indicatorFunctionality(e, effect) {
-		if (e === this.initIndicatorsBox || e.classList.contains("active")) {
+	indicatorFunctionality(e) {
+		if (e === this.initIndicatorsBox || e.target.classList.contains(this.activeIndicatorClass)) {
 			return;
 		}
 
-		this.injectEffect(effect);
-		this.slideMultiplier = e.dataset.position;
-		this.calculateImagePosition();
+		this.slideMultiplier = e.target.dataset.position;
+		this.injectEffect();
+		this.updateImagePosition();
 		this.updateImageIndicator();
 	}
 
-	calculateImagePosition() {
+	updateImageIndicator() {
+		this.indicatorsArray.forEach(indicator => {
+			indicator.classList.remove(this.activeIndicatorClass);
+			if (indicator.dataset.position == this.slideMultiplier) {
+				indicator.classList.add(this.activeIndicatorClass);
+			}
+		});
+	}
+
+	updateImagePosition() {
 		const currentSlide = document.querySelector(`[data-position="${this.slideMultiplier}"]`);
 		this.slider.style.transform = `translateX(-${currentSlide.offsetLeft}px)`;
 	}
 
-	autoSlide() {
-		setInterval(() => {
-			this.nextButton.click();
-		}, 3000);
-	}
+	calculateTransformValue() {}
+
+	// onGrabClick(e) {
+	// 	console.log("clicked");
+	// 	this.clicked = true;
+	// 	this.initialClickX = this.currentX - e.pageX;
+	// }
+
+	// onGrabMove(e) {
+	// 	if (!this.clicked) {
+	// 		return;
+	// 	}
+	// 	e.preventDefault();
+	// 	this.newClickX = e.pageX + this.initialClickX;
+	// 	console.log(this.newClickX);
+
+	// 	if (this.newClickX < -150) {
+	// 		this.nextButton.click();
+	// 		return;
+	// 	}
+	// 	if (this.newClickX > 0) {
+	// 		this.newClickX = 0;
+	// 	} else if (this.newClickX < -this.blockMoveOffset()) {
+	// 		this.newClickX = this.blockMoveOffset();
+	// 	}
+
+	// 	this.slider.style.transform = `translateX(${this.newClickX}px)`;
+	// }
+
+	// onGrabLeave() {
+	// 	this.clicked = false;
+	// 	this.currentX = this.newClickX || 0;
+	// }
+
+	// onGrabUp() {
+	// 	this.clicked = false;
+	// 	this.currentX = this.newClickX || 0;
+	// }
 
 	init() {
 		this.initCarousel();
