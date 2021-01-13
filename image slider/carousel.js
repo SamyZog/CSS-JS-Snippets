@@ -7,8 +7,6 @@ class Carousel {
 		this.slideMultiplier = 0;
 		this.activeIndicatorClass = "active";
 		this.currentSlide;
-		this.transformValue;
-		this.clicked;
 		this.touched;
 		this.effect = "slide";
 		this.transitionDuration = 500;
@@ -166,10 +164,22 @@ class Carousel {
 			return;
 		}
 		e.preventDefault();
-		this.delta = this.initialX + e.targetTouches[0].pageX;
+		this.delta = this.initialX + e.targetTouches[0].pageX + 10;
+		this.translate = this.delta - this.currentSlide.offsetLeft;
+
+		if (
+			(this.delta > 0 && this.currentSlide.offsetLeft === 0) ||
+			(this.delta < 0 &&
+				this.currentSlide.offsetLeft >=
+					this.slider.offsetWidth - this.slider.offsetWidth / this.imageArray.length)
+		) {
+			this.delta = 0;
+			return;
+		}
+		this.slider.style.transform = `translateX(${this.translate}px)`;
 	}
 
-	onTouchUp(e) {
+	onTouchUp() {
 		this.touchMove();
 		this.touched = false;
 	}
@@ -179,6 +189,8 @@ class Carousel {
 			this.move("next");
 		} else if (this.delta > 100) {
 			this.move("previous");
+		} else {
+			this.slider.style.transform = `translateX(-${this.currentSlide.offsetLeft}px)`;
 		}
 		this.delta = 0;
 	}
