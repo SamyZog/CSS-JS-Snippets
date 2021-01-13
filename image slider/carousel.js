@@ -164,7 +164,7 @@ class Carousel {
 			return;
 		}
 		e.preventDefault();
-		this.delta = this.initialX + e.targetTouches[0].pageX + 10;
+		this.delta = this.initialX + e.targetTouches[0].pageX;
 		this.translate = this.delta - this.currentSlide.offsetLeft;
 
 		if (
