@@ -158,8 +158,7 @@ class Carousel {
 
 	onTouchDown(e) {
 		this.touched = true;
-		const rect = this.currentSlide.getBoundingClientRect();
-		this.initialX = rect.left - e.targetTouches[0].pageX;
+		this.initialX = -e.targetTouches[0].pageX;
 	}
 
 	onTouchMove(e) {
@@ -167,7 +166,7 @@ class Carousel {
 			return;
 		}
 		e.preventDefault();
-		this.delta = this.initialX + e.targetTouches[0].pageX;
+		this.delta = this.initialX - e.targetTouches[0].pageX;
 	}
 
 	onTouchUp(e) {
