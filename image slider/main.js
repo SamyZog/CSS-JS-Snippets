@@ -46,8 +46,16 @@ carousel.carousel.addEventListener("wheel", function (e) {
 	}
 });
 
-carousel.carousel.addEventListener("mousedown", function (e) {
-	console.log("click");
-});
+/* ------------------------------ TOUCH CONTROL ----------------------------- */
 
-carousel.slides.forEach(slide => [console.log(slide.offsetWidth)]);
+carousel.carousel.addEventListener("touchstart", function (e) {
+	carousel.onTouchDown(e);
+
+	this.addEventListener("touchmove", function (e) {
+		carousel.onTouchMove(e);
+	});
+
+	this.addEventListener("touchend", function (e) {
+		carousel.onTouchUp(e);
+	});
+});
