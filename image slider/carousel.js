@@ -11,6 +11,7 @@ class Carousel {
 		this.effect = "slide";
 		this.transitionDuration = 500;
 		this.direction;
+		this.interval = 2500;
 	}
 
 	/* ---------------------------- SET SLIDER EFFECT --------------------------- */
@@ -106,12 +107,13 @@ class Carousel {
 	}
 
 	multiplierUpdate() {
-		if (this.direction === "next") {
-			this.slideMultiplier++;
-		}
-
-		if (this.direction === "previous") {
-			this.slideMultiplier--;
+		switch (this.direction) {
+			case "next":
+				this.slideMultiplier++;
+				break;
+			case "previous":
+				this.slideMultiplier--;
+				break;
 		}
 
 		if (this.slideMultiplier === this.imageArray.length) {

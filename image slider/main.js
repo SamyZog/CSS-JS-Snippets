@@ -38,14 +38,6 @@ carousel.initIndicatorsBox.addEventListener("click", function (e) {
 	carousel.indicatorFunctionality(e);
 });
 
-carousel.carousel.addEventListener("wheel", function (e) {
-	if (e.deltaY > 0) {
-		carousel.move("next");
-	} else {
-		carousel.move("previous");
-	}
-});
-
 /* ------------------------------ TOUCH CONTROL ----------------------------- */
 
 carousel.carousel.addEventListener("touchstart", function (e) {
