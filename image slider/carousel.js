@@ -58,7 +58,8 @@ class Carousel {
 
 		this.imageArray.forEach((url, i) => {
 			const slide = document.createElement("div");
-			slide.classList.add("carousel__slider-image");
+			slide.classList.add(`carousel__slider-image`);
+			slide.classList.add(`carousel__slider-image--image${i}`);
 			slide.style.backgroundImage = `url(${url})`;
 			slide.style.width = `${100 / this.imageArray.length}%`;
 			slide.dataset.position = i;
@@ -163,38 +164,38 @@ class Carousel {
 
 	/* ------------------------ SLIDER GRAB FUNCTIONALITY ----------------------- */
 
-	onGrabClick(e) {
+	onGrabDown(e) {
 		this.clicked = true;
 		this.initialClickX = this.currentX - e.pageX;
 	}
 
-	// onGrabMove(e) {
-	// 	if (!this.clicked) {
-	// 		return;
-	// 	}
+	onGrabMove(e) {
+		if (!this.clicked) {
+			return;
+		}
 
-	// 	e.preventDefault();
-	// 	this.newClickX = e.pageX + this.initialClickX;
-	// 	console.log(this.newClickX);
+		e.preventDefault();
+		this.newClickX = e.pageX + this.initialClickX;
+		console.log(this.newClickX);
 
-	// 	if (this.newClickX > 0) {
-	// 		this.newClickX = 0;
-	// 	} else if (this.newClickX < -this.blockMoveOffset()) {
-	// 		this.newClickX = -this.blockMoveOffset();
-	// 	}
+		if (this.newClickX > 0) {
+			this.newClickX = 0;
+		} else if (this.newClickX < -this.blockMoveOffset()) {
+			this.newClickX = -this.blockMoveOffset();
+		}
 
-	// 	this.slider.style.transform = `translateX(${this.newClickX}px)`;
-	// }
+		this.slider.style.transform = `translateX(${this.newClickX}px)`;
+	}
 
-	// onGrabLeave() {
-	// 	this.clicked = false;
-	// 	this.currentX = this.newClickX || 0;
-	// }
+	onGrabLeave() {
+		this.clicked = false;
+		this.currentX = this.newClickX || 0;
+	}
 
-	// onGrabUp() {
-	// 	this.clicked = false;
-	// 	this.currentX = this.newClickX || 0;
-	// }
+	onGrabUp() {
+		this.clicked = false;
+		this.currentX = this.newClickX || 0;
+	}
 
 	init() {
 		this.initCarousel();

@@ -32,6 +32,20 @@ carousel.slider.addEventListener("transitionend", function () {
 	this.style.opacity = "1";
 });
 
+carousel.nextIcon.addEventListener("mousedown", function (e) {
+	e.stopPropagation();
+});
+
+carousel.prevIcon.addEventListener("mousedown", function (e) {
+	e.stopPropagation();
+});
+
+carousel.indicatorsArray.forEach(indicator =>
+	indicator.addEventListener("mousedown", function (e) {
+		e.stopPropagation();
+	}),
+);
+
 /* ---------------------------- INDICATOR CONTROL --------------------------- */
 
 carousel.initIndicatorsBox.addEventListener("click", function (e) {
@@ -47,7 +61,19 @@ carousel.carousel.addEventListener("wheel", function (e) {
 });
 
 carousel.carousel.addEventListener("mousedown", function (e) {
-	console.log("click");
+	carousel.onGrabDown(e);
+
+	this.addEventListener("mousemove", function (e) {
+		carousel.onGrabMove(e);
+	});
+
+	this.addEventListener("mouseleave", function (e) {
+		carousel.onGrabLeave(e);
+	});
+
+	this.addEventListener("mouseup", function (e) {
+		carousel.onGrabUp(e);
+	});
 });
 
 carousel.slides.forEach(slide => [console.log(slide.offsetWidth)]);
