@@ -166,7 +166,7 @@ class Carousel {
 			return;
 		}
 		e.preventDefault();
-		this.delta = this.initialX - e.targetTouches[0].pageX;
+		this.delta = this.initialX + e.targetTouches[0].pageX;
 	}
 
 	onTouchUp(e) {
