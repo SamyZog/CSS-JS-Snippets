@@ -32,20 +32,6 @@ carousel.slider.addEventListener("transitionend", function () {
 	this.style.opacity = "1";
 });
 
-carousel.nextIcon.addEventListener("mousedown", function (e) {
-	e.stopPropagation();
-});
-
-carousel.prevIcon.addEventListener("mousedown", function (e) {
-	e.stopPropagation();
-});
-
-carousel.indicatorsArray.forEach(indicator =>
-	indicator.addEventListener("mousedown", function (e) {
-		e.stopPropagation();
-	}),
-);
-
 /* ---------------------------- INDICATOR CONTROL --------------------------- */
 
 carousel.initIndicatorsBox.addEventListener("click", function (e) {
@@ -60,20 +46,16 @@ carousel.carousel.addEventListener("wheel", function (e) {
 	}
 });
 
-carousel.carousel.addEventListener("mousedown", function (e) {
-	carousel.onGrabDown(e);
+/* ------------------------------ TOUCH CONTROL ----------------------------- */
 
-	this.addEventListener("mousemove", function (e) {
-		carousel.onGrabMove(e);
+carousel.carousel.addEventListener("touchstart", function (e) {
+	carousel.onTouchDown(e);
+
+	this.addEventListener("touchmove", function (e) {
+		carousel.onTouchMove(e);
 	});
 
-	this.addEventListener("mouseleave", function (e) {
-		carousel.onGrabLeave(e);
-	});
-
-	this.addEventListener("mouseup", function (e) {
-		carousel.onGrabUp(e);
+	this.addEventListener("touchend", function (e) {
+		carousel.onTouchUp(e);
 	});
 });
-
-carousel.slides.forEach(slide => [console.log(slide.offsetWidth)]);

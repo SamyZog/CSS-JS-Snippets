@@ -9,9 +9,7 @@ class Carousel {
 		this.currentSlide;
 		this.transformValue;
 		this.clicked;
-		this.initialClickX;
-		this.newClickX;
-		this.currentX = 0;
+		this.touched;
 		this.effect = "slide";
 		this.transitionDuration = 500;
 		this.direction;
@@ -35,10 +33,6 @@ class Carousel {
 				this.slider.style.transition = `transform ${this.transitionDuration}ms`;
 				break;
 		}
-	}
-
-	blockMoveOffset() {
-		return this.slider.offsetWidth - this.carousel.offsetWidth;
 	}
 
 	/* ----------------------- CREATE AND INJECT CAROUSEL ----------------------- */
@@ -68,6 +62,7 @@ class Carousel {
 		});
 
 		this.slides = this.slider.querySelectorAll(":scope > *");
+		this.currentSlide = this.slider.firstChild;
 	}
 
 	initControlsBox() {
@@ -103,6 +98,7 @@ class Carousel {
 		this.injectEffect();
 		this.updateDirection(direction);
 		this.multiplierUpdate();
+		this.currentVisibleSlide();
 		this.updateImagePosition();
 		this.updateImageIndicator();
 	}
@@ -136,6 +132,7 @@ class Carousel {
 
 		this.injectEffect();
 		this.slideMultiplier = e.target.dataset.position;
+		this.currentVisibleSlide();
 		this.updateImagePosition();
 		this.updateImageIndicator();
 	}
@@ -149,52 +146,42 @@ class Carousel {
 		});
 	}
 
-	updateImagePosition() {
-		this.currentVisibleSlide();
-		this.updateTransformValue(this.currentSlide.offsetLeft);
-	}
-
 	currentVisibleSlide() {
 		this.currentSlide = document.querySelector(`[data-position="${this.slideMultiplier}"]`);
 	}
 
-	updateTransformValue(value) {
-		this.slider.style.transform = `translateX(-${value}px)`;
+	updateImagePosition() {
+		this.slider.style.transform = `translateX(-${this.currentSlide.offsetLeft}px)`;
 	}
 
-	/* ------------------------ SLIDER GRAB FUNCTIONALITY ----------------------- */
+	/* ----------------------- SLIDER TOUCH FUNCTIONALITY ----------------------- */
 
-	onGrabDown(e) {
-		this.clicked = true;
-		this.initialClickX = this.currentX - e.pageX;
+	onTouchDown(e) {
+		this.touched = true;
+		const rect = this.currentSlide.getBoundingClientRect();
+		this.initialX = rect.left - e.targetTouches[0].pageX;
 	}
 
-	onGrabMove(e) {
-		if (!this.clicked) {
+	onTouchMove(e) {
+		if (!this.touched) {
 			return;
 		}
-
 		e.preventDefault();
-		this.newClickX = e.pageX + this.initialClickX;
-		console.log(this.newClickX);
+		this.delta = this.initialX + e.targetTouches[0].pageX;
+	}
 
-		if (this.newClickX > 0) {
-			this.newClickX = 0;
-		} else if (this.newClickX < -this.blockMoveOffset()) {
-			this.newClickX = -this.blockMoveOffset();
+	onTouchUp(e) {
+		this.touchMove();
+		this.touched = false;
+	}
+
+	touchMove() {
+		if (this.delta < -100) {
+			this.move("next");
+		} else if (this.delta > 100) {
+			this.move("previous");
 		}
-
-		this.slider.style.transform = `translateX(${this.newClickX}px)`;
-	}
-
-	onGrabLeave() {
-		this.clicked = false;
-		this.currentX = this.newClickX || 0;
-	}
-
-	onGrabUp() {
-		this.clicked = false;
-		this.currentX = this.newClickX || 0;
+		this.delta = 0;
 	}
 
 	init() {
