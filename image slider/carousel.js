@@ -156,6 +156,7 @@ class Carousel {
 
 	onTouchDown(e) {
 		this.touched = true;
+		this.slider.style.transition = `transform ${0}ms`;
 		this.initialX = -e.targetTouches[0].pageX;
 	}
 
@@ -180,6 +181,7 @@ class Carousel {
 	}
 
 	onTouchUp() {
+		this.slider.style.transition = `transform ${this.transitionDuration}ms`;
 		this.touchMove();
 		this.touched = false;
 	}
