@@ -172,9 +172,7 @@ class Carousel {
 
 		if (
 			(this.delta > 0 && this.currentSlide.offsetLeft === 0) ||
-			(this.delta < 0 &&
-				this.currentSlide.offsetLeft >=
-					this.slider.offsetWidth - this.slider.offsetWidth / this.imageArray.length)
+			(this.delta < 0 && this.currentSlide.offsetLeft >= this.slider.offsetWidth - this.currentSlide.offsetWidth)
 		) {
 			this.delta = 0;
 			return;
