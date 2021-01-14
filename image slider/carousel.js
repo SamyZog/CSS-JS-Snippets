@@ -10,8 +10,8 @@ class Carousel {
 		this.touched;
 		this.transitionDuration = 500;
 		this.direction;
-		this.intervalDuration = 2000;
-		this.timeoutDuration = 4000;
+		this.intervalDuration = 3000;
+		this.timeoutDuration = 5000;
 	}
 
 	/* ----------------------- CREATE AND INJECT CAROUSEL ----------------------- */
