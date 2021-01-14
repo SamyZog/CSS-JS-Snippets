@@ -4,10 +4,13 @@ body {
 	font-family: "Roboto", sans-serif;
 	font-size: 1.6rem;
 	line-height: 1.6;
+	padding: 20px;
+	height: 100vh;
 }
 
 .carousel {
-	height: 80vh;
+	border-radius: 10px;
+	height: 100%;
 	width: 100%;
 	position: relative;
 	overflow-x: hidden;
@@ -17,6 +20,7 @@ body {
 .carousel__slider {
 	height: 100%;
 	display: flex;
+	transition: 500ms;
 }
 
 .carousel__slider-image {
@@ -30,25 +34,25 @@ body {
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
-	width: 50px;
+	width: 75px;
 	height: 100%;
-	transition-duration: 500ms;
+	transition: 500ms;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-image: linear-gradient(to right, rgba(0, 0, 0, 0.25), transparent);
+	background-image: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
 }
 
 .carousel__next-button {
-	background-image: linear-gradient(to left, rgba(0, 0, 0, 0.25), transparent);
+	background-image: linear-gradient(to left, rgba(0, 0, 0, 0.3), transparent);
 	right: 0;
 }
 
 .carousel__prev-button svg,
 .carousel__next-button svg {
 	cursor: pointer;
-	height: 30px;
-	width: 30px;
+	height: 40px;
+	width: 40px;
 	transition-duration: 500ms;
 	opacity: 0.5;
 }
@@ -56,7 +60,7 @@ body {
 .carousel__prev-button svg g,
 .carousel__next-button svg g {
 	fill: #a2b5bd;
-	transition-duration: 125ms;
+	transition: 125ms;
 }
 
 .carousel__prev-button svg:hover g,
@@ -96,7 +100,7 @@ body {
 	width: 50px;
 	background-color: #a2b5bd;
 	transform: skewX(-60deg);
-	transition-duration: 500ms;
+	transition: 500ms;
 	opacity: 0.5;
 }
 
@@ -107,4 +111,22 @@ body {
 .active {
 	background-color: rgb(218, 83, 38);
 	opacity: 1;
+}
+
+@media screen and (max-width: 750px) {
+	.carousel__prev-button,
+	.carousel__next-button {
+		display: none;
+	}
+
+	.carousel__indicators {
+		padding: 0 20px;
+	}
+
+	.carousel__position-indicator {
+		height: 10px;
+		width: 10px;
+		transform: skewX(0);
+		border-radius: 50%;
+	}
 }

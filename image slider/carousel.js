@@ -8,30 +8,9 @@ class Carousel {
 		this.activeIndicatorClass = "active";
 		this.currentSlide;
 		this.touched;
-		this.effect = "slide";
 		this.transitionDuration = 500;
 		this.direction;
 		this.interval = 2500;
-	}
-
-	/* ---------------------------- SET SLIDER EFFECT --------------------------- */
-
-	injectEffect() {
-		if (!this.effect) {
-			return;
-		}
-
-		switch (this.effect) {
-			case "fade":
-				this.slider.style.opacity = "0";
-				this.slider.style.transition = `opacity ${this.transitionDuration}ms, transform 0ms ${
-					this.transitionDuration / 2
-				}ms`;
-				break;
-			case "slide":
-				this.slider.style.transition = `transform ${this.transitionDuration}ms`;
-				break;
-		}
 	}
 
 	/* ----------------------- CREATE AND INJECT CAROUSEL ----------------------- */
@@ -94,7 +73,6 @@ class Carousel {
 	/* ----------------------------- SLIDER MOVEMENT ---------------------------- */
 
 	move(direction) {
-		this.injectEffect();
 		this.updateDirection(direction);
 		this.multiplierUpdate();
 		this.currentVisibleSlide();
@@ -130,7 +108,6 @@ class Carousel {
 			return;
 		}
 
-		this.injectEffect();
 		this.slideMultiplier = e.target.dataset.position;
 		this.currentVisibleSlide();
 		this.updateImagePosition();
@@ -140,14 +117,14 @@ class Carousel {
 	updateImageIndicator() {
 		this.indicatorsArray.forEach(indicator => {
 			indicator.classList.remove(this.activeIndicatorClass);
-			if (indicator.dataset.position == this.slideMultiplier) {
-				indicator.classList.add(this.activeIndicatorClass);
-			}
 		});
+		document
+			.querySelector(`.carousel__indicators [data-position="${this.slideMultiplier}"]`)
+			.classList.add("active");
 	}
 
 	currentVisibleSlide() {
-		this.currentSlide = document.querySelector(`[data-position="${this.slideMultiplier}"]`);
+		this.currentSlide = document.querySelector(`.carousel__slider [data-position="${this.slideMultiplier}"]`);
 	}
 
 	updateImagePosition() {
@@ -157,8 +134,8 @@ class Carousel {
 	/* ----------------------- SLIDER TOUCH FUNCTIONALITY ----------------------- */
 
 	onTouchDown(e) {
+		this.slider.style.transition = "none";
 		this.touched = true;
-		this.slider.style.transition = `transform ${0}ms`;
 		this.initialX = -e.targetTouches[0].pageX;
 	}
 
@@ -177,23 +154,25 @@ class Carousel {
 			this.delta = 0;
 			return;
 		}
+
 		this.slider.style.transform = `translateX(${this.translate}px)`;
 	}
 
 	onTouchUp() {
-		this.slider.style.transition = `transform ${this.transitionDuration}ms`;
+		this.slider.style.transition = `${this.transitionDuration}ms`;
 		this.touchMove();
 		this.touched = false;
 	}
 
 	touchMove() {
-		if (this.delta < -100) {
+		if (this.delta < -this.currentSlide.offsetWidth / 6) {
 			this.move("next");
-		} else if (this.delta > 100) {
+		} else if (this.delta > this.currentSlide.offsetWidth / 6) {
 			this.move("previous");
 		} else {
 			this.slider.style.transform = `translateX(-${this.currentSlide.offsetLeft}px)`;
 		}
+
 		this.delta = 0;
 	}
 
