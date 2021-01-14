@@ -22,10 +22,12 @@ carousel.init();
 
 carousel.nextIcon.addEventListener("click", function (e) {
 	carousel.move("next");
+	carousel.restartAutoMove();
 });
 
 carousel.prevIcon.addEventListener("click", function (e) {
 	carousel.move("previous");
+	carousel.restartAutoMove();
 });
 
 carousel.slider.addEventListener("transitionend", function () {
@@ -36,18 +38,22 @@ carousel.slider.addEventListener("transitionend", function () {
 
 carousel.initIndicatorsBox.addEventListener("click", function (e) {
 	carousel.indicatorFunctionality(e);
+	carousel.restartAutoMove();
 });
 
 /* ------------------------------ TOUCH CONTROL ----------------------------- */
 
 carousel.carousel.addEventListener("touchstart", function (e) {
 	carousel.onTouchDown(e);
+	carousel.restartAutoMove();
 
 	this.addEventListener("touchmove", function (e) {
 		carousel.onTouchMove(e);
+		carousel.restartAutoMove();
 	});
 
 	this.addEventListener("touchend", function (e) {
 		carousel.onTouchUp(e);
+		carousel.restartAutoMove();
 	});
 });

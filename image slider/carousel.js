@@ -10,7 +10,8 @@ class Carousel {
 		this.touched;
 		this.transitionDuration = 500;
 		this.direction;
-		this.interval = 2500;
+		this.intervalDuration = 2000;
+		this.timeoutDuration = 4000;
 	}
 
 	/* ----------------------- CREATE AND INJECT CAROUSEL ----------------------- */
@@ -176,10 +177,37 @@ class Carousel {
 		this.delta = 0;
 	}
 
+	autoMove() {
+		this.interval = setInterval(() => {
+			this.move("next");
+		}, this.intervalDuration);
+	}
+
+	cancelAutoMove() {
+		if (this.interval) {
+			clearInterval(this.interval);
+		}
+	}
+
+	restartInterval() {
+		if (this.timeout) {
+			clearTimeout(this.timeout);
+		}
+		this.timeout = setTimeout(() => {
+			this.autoMove();
+		}, this.timeoutDuration);
+	}
+
+	restartAutoMove() {
+		this.cancelAutoMove();
+		this.restartInterval();
+	}
+
 	init() {
 		this.initCarousel();
 		this.initSlider();
 		this.initControlsBox();
 		this.initIndicators();
+		this.autoMove();
 	}
 }
