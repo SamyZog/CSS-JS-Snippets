@@ -113,7 +113,7 @@ body {
 	opacity: 1;
 }
 
-@media screen and (max-width: 750px) {
+@media (hover: none) {
 	.carousel__prev-button,
 	.carousel__next-button {
 		display: none;

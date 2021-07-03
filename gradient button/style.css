@@ -31,7 +31,9 @@ a {
 
 a span {
 	position: absolute;
-	display: block;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	text-align: center;
 	top: 2px;
 	left: 2px;
