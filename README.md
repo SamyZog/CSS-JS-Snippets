@@ -1,4 +1,4 @@
-# CSS-Experiments
+# CSS JS Snippets
 
 A bunch of code snippets to practice some CSS and vanilla JavaScript
 
